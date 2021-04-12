@@ -12,8 +12,8 @@ class ChatApp extends Component {
     };
 
     this.user = {
-      id: props.username,
-      name: props.username
+      id: props,
+      name: props
     };
 
     this.setupChatClient = this.setupChatClient.bind(this);
@@ -25,7 +25,8 @@ class ChatApp extends Component {
 
   async componentDidMount() {
 
-    const response = await fetch(`https://warm-hollows-35856.herokuapp.com/getTwilioToken?identity=${this.state.id}`).
+
+    const response = await fetch(`https://warm-hollows-35856.herokuapp.com/getTwilioToken?identity=${this.user.id.username}`).
       then(res => res.json())
       .then(data => Chat.create(data.token))
       .then(this.setupChatClient)
@@ -60,7 +61,6 @@ class ChatApp extends Component {
       })
       .then(() => {
         this.setState({ isLoading: false });
-        this.channel.getMessages().then(this.messagesLoaded);
         this.channel.on('messageAdded', this.messageAdded);
       })
       .catch(this.handleError);
@@ -108,6 +108,7 @@ class ChatApp extends Component {
 	        user={this.user}
 	        messages={this.state.messages}
 	        onMessageSend={this.sendMessage}
+          placeholder={"Type a message..."}
 	        width={500}
 	      />
 	    );

@@ -32,7 +32,7 @@ class App extends Component {
             const room = await connect(data.token, {
                 name: 'cool-room',
                 audio: true,
-                video: false
+                video: true            
             });
 
             this.setState({ room: room });
