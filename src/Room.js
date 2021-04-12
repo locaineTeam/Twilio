@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.scss';
+import ChatApp from './ChatApp';
 import Participant from './Participant';
 
 class Room extends Component {
@@ -47,6 +48,9 @@ class Room extends Component {
     }
 
     render() {
+        let chat;
+        chat= <ChatApp username={"SIMON"} />;
+        
         return (
             <div className="room">
                 <div className = "participants">
@@ -56,6 +60,7 @@ class Room extends Component {
                             <Participant key={participant.identity} participant={participant}/>
                         )
                     }
+                    <div class="container" className="row mt-3">{chat}</div>
                 </div>
                 <button id="leaveRoom" onClick={this.leaveRoom}>Leave Room</button>
             </div>
@@ -64,6 +69,4 @@ class Room extends Component {
 
 
 
-}
-
-export default Room;
+}
