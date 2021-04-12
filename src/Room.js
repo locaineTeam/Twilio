@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import './App.scss';
+import ChatApp from './ChatApp';
 import Participant from './Participant';
 
 class Room extends Component {
     constructor(props) {
-        super(props);
-
+        super(props);        
         this.state = {
+
             remoteParticipants: Array.from(this.props.room.participants.values())
         }
 
         this.leaveRoom = this.leaveRoom.bind(this);
+        this.identity = this.props.room.localParticipant.identity;
     }
 
     componentDidMount() {
@@ -47,6 +49,9 @@ class Room extends Component {
     }
 
     render() {
+        let chat;
+        chat= <ChatApp username={this.identity} />;
+        
         return (
             <div className="room">
                 <div className = "participants">
@@ -56,6 +61,7 @@ class Room extends Component {
                             <Participant key={participant.identity} participant={participant}/>
                         )
                     }
+                    <div className="row mt-3">{chat}</div>
                 </div>
                 <button id="leaveRoom" onClick={this.leaveRoom}>Leave Room</button>
             </div>
@@ -65,5 +71,4 @@ class Room extends Component {
 
 
 }
-
 export default Room;
