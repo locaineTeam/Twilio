@@ -1,4 +1,4 @@
-import './App.scss';
+﻿import './App.scss';
 import React, {Component} from 'react';
 import Select from 'react-select';
 import Room from './Room';
@@ -50,7 +50,7 @@ class App extends Component {
             const room = await connect(data.token, {
                 name: this.state.selectedOption.value,
                 audio: true,
-                video: false
+                video: true
             });
 
             this.setState({ room: room });
