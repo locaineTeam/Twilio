@@ -34,12 +34,14 @@ class App extends Component {
 
     handleChange = selectedOption => {
         this.setState({ selectedOption });
-        console.log(`Option selected:`, selectedOption);
+        
 
     };
 
     async joinRoom() {
-        try {
+        
+        if (this.state.selectedOption.value!==''){
+            try {
 
             const response = await fetch(`https://warm-hollows-35856.herokuapp.com/getTwilioToken?identity=${this.state.identity}&room=${this.state.selectedOption.value}`);
 
@@ -48,13 +50,17 @@ class App extends Component {
             const room = await connect(data.token, {
                 name: this.state.selectedOption.value,
                 audio: true,
-                video: true
+                video: false
             });
 
             this.setState({ room: room });
-        } catch(err) {
-            console.log(err);
         }
+
+            catch(err) {
+                console.log(err);
+            }
+        }
+        
     }
 
 
@@ -80,8 +86,7 @@ class App extends Component {
     render() {
         const disabled = this.state.identity === '' ? true : false;
         
-        
-        
+           
         return (
             <div className="app">
                 {

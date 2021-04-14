@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Chat from 'twilio-chat';
-import { Chat as ChatUI } from '@progress/kendo-react-conversational-ui';
+import { Chat as ChatInterface } from '@progress/kendo-react-conversational-ui';
 
 class ChatApp extends Component {
 	constructor(props) {
@@ -33,9 +33,8 @@ class ChatApp extends Component {
       then(res => res.json())
       .then(data => Chat.create(data.token))
       .then(this.setupChatClient)
-      .catch(this.handleError);;
+      .catch(this.handleError);
     
-
     }
 
 	handleError(error) {
@@ -107,13 +106,15 @@ class ChatApp extends Component {
 	      return <p>Loading chat...</p>;
 	    }
 	    return (
-	      <ChatUI
-	        user={this.user}
-	        messages={this.state.messages}
-	        onMessageSend={this.sendMessage}
-          placeholder={"Type a message..."}
-	        width={500}
-	      />
+        <div>
+  	      <ChatInterface
+  	        user={this.user}
+  	        messages={this.state.messages}
+  	        onMessageSend={this.sendMessage}
+            placeholder={"Type a message..."}
+  	        width={500}
+  	      />
+        </div>  
 	    );
 	  }
 }

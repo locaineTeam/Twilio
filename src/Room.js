@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.scss';
 import ChatApp from './ChatApp';
 import Participant from './Participant';
+import '@progress/kendo-theme-material/dist/all.css';
 
 class Room extends Component {
     constructor(props) {
@@ -62,13 +63,22 @@ class Room extends Component {
                 <div dangerouslySetInnerHTML={{__html: "Room: "+r}} />
 
                 <div className = "participants">
+
+                    
+
                     <Participant key={this.props.room.localParticipant.identity} localParticipant="true" participant={this.props.room.localParticipant}/>
                     {
                         this.state.remoteParticipants.map(participant =>
                             <Participant key={participant.identity} participant={participant}/>
                         )
                     }
-                    <div className="row mt-3">{chat}</div>
+                    
+                    <div className="container">
+                        <div className="row mt-3">{chat}</div>
+                    </div>
+
+                    
+
                 </div>
                 <button id="leaveRoom" onClick={this.leaveRoom}>Leave Room</button>
             </div>
