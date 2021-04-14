@@ -10,9 +10,12 @@ class Room extends Component {
 
             remoteParticipants: Array.from(this.props.room.participants.values())
         }
+        //console.log(this.state.remoteParticipants);Array de participantes remotos
 
         this.leaveRoom = this.leaveRoom.bind(this);
         this.identity = this.props.room.localParticipant.identity;
+        this.roomName = this.props.room.name;        
+
     }
 
     componentDidMount() {
@@ -50,10 +53,14 @@ class Room extends Component {
 
     render() {
         let chat;
-        chat= <ChatApp username={this.identity} />;
-        
+        chat= <ChatApp username={this.identity} room={this.roomName}/>;
+        let r = this.roomName;
         return (
+            
+            
             <div className="room">
+                <div dangerouslySetInnerHTML={{__html: "Room: "+r}} />
+
                 <div className = "participants">
                     <Participant key={this.props.room.localParticipant.identity} localParticipant="true" participant={this.props.room.localParticipant}/>
                     {

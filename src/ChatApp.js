@@ -4,17 +4,20 @@ import { Chat as ChatUI } from '@progress/kendo-react-conversational-ui';
 
 class ChatApp extends Component {
 	constructor(props) {
+    console.log(props);
     super(props);
     this.state = {
       error: null,
       isLoading: true,
       messages: []
     };
+    this.room = props.room;
 
     this.user = {
-      id: props,
-      name: props
+      id: props.username,
+      name: props.username
     };
+
 
     this.setupChatClient = this.setupChatClient.bind(this);
     this.messagesLoaded = this.messagesLoaded.bind(this);
@@ -26,7 +29,7 @@ class ChatApp extends Component {
   async componentDidMount() {
 
 
-    const response = await fetch(`https://warm-hollows-35856.herokuapp.com/getTwilioToken?identity=${this.user.id.username}`).
+    const response = await fetch(`https://warm-hollows-35856.herokuapp.com/getTwilioToken?identity=${this.user.id}&room=${this.room}`).
       then(res => res.json())
       .then(data => Chat.create(data.token))
       .then(this.setupChatClient)

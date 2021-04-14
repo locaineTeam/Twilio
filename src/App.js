@@ -1,8 +1,17 @@
 import './App.scss';
 import React, {Component} from 'react';
-// import ChatApp from './ChatApp';
+import Select from 'react-select';
 import Room from './Room';
+
+
 const { connect } = require('twilio-video');
+
+const options = [
+  { value: '', label: '⠀' },
+  { value: 'spanish', label: 'Spanish' },
+  { value: 'english', label: 'English' },
+  { value: 'german', label: 'German' },
+];
 
 class App extends Component {
     constructor(props) {
@@ -10,6 +19,7 @@ class App extends Component {
 
         this.state = {
             identity: '',
+            selectedOption: null,
             room: null
         }
         this.inputRef = React.createRef();
@@ -21,18 +31,24 @@ class App extends Component {
 
 
 
-    
+
+    handleChange = selectedOption => {
+        this.setState({ selectedOption });
+        console.log(`Option selected:`, selectedOption);
+
+    };
+
     async joinRoom() {
         try {
-            const response = await fetch(`https://warm-hollows-35856.herokuapp.com/getTwilioToken?identity=${this.state.identity}`);
+
+            const response = await fetch(`https://warm-hollows-35856.herokuapp.com/getTwilioToken?identity=${this.state.identity}&room=${this.state.selectedOption.value}`);
 
             const data = await response.json();
-            console.log(data);
             
             const room = await connect(data.token, {
-                name: 'cool-room',
+                name: this.state.selectedOption.value,
                 audio: true,
-                video: true            
+                video: true
             });
 
             this.setState({ room: room });
@@ -60,6 +76,7 @@ class App extends Component {
     }
 
 
+
     render() {
         const disabled = this.state.identity === '' ? true : false;
         
@@ -76,25 +93,22 @@ class App extends Component {
                                 ref={this.inputRef}
                                 onClick={this.removePlaceholderText}
                                 placeholder="What's your name?"/>
+                            <Select
+                                value={this.state.selectedOption}
+                                onChange={this.handleChange}
+                                options={options}
+                              />
                             <button disabled={disabled} onClick={this.joinRoom}>Join Room</button>
+
+                             
+                              
                             
                         </div>
                         : <Room returnToLobby={this.returnToLobby} room={this.state.room} />
-
-
-
                 }
             </div>
-
-
-            
-
         );
     }
-
-
-
 }
-
 
 export default App;
