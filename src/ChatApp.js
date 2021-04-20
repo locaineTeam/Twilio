@@ -4,7 +4,7 @@ import { Chat as ChatInterface } from '@progress/kendo-react-conversational-ui';
 
 class ChatApp extends Component {
 	constructor(props) {
-    console.log(props);
+    //console.log(props);
     super(props);
     this.state = {
       error: null,
@@ -47,12 +47,13 @@ class ChatApp extends Component {
 
 	setupChatClient(client) {    
     this.client = client;
+    let nombre = this.room;
     this.client
-      .getChannelByUniqueName('general')
+      .getChannelByUniqueName(nombre)
       .then(channel => channel)
       .catch(error => {
         if (error.body.code === 50300) {
-          return this.client.createChannel({ uniqueName: 'general' });
+          return this.client.createChannel({ uniqueName: nombre });
         } else {
           this.handleError(error);
       }
@@ -77,18 +78,35 @@ class ChatApp extends Component {
 	  }
 
 	messagesLoaded(messagePage) {
+      console.log(this);
 	    this.setState({
 	      messages: messagePage.items.map(this.twilioMessageToKendoMessage)
 	    	});
 	  }
 
-	  messageAdded(message) {
-    this.setState(prevState => ({
-      messages: [
-        ...prevState.messages,
-        this.twilioMessageToKendoMessage(message)
-      ]
-    }));
+	  messageAdded(message) { 
+
+    this.setState(prevState => (
+
+
+      {
+
+
+        
+        messages: [
+          ...prevState.messages,
+          this.twilioMessageToKendoMessage(message)
+        ]
+
+
+      }
+
+
+    ));
+
+    
+
+
   }
 	sendMessage(event) {
 	    this.channel.sendMessage(event.message.text);

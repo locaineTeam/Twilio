@@ -55,6 +55,7 @@ class Room extends Component {
     render() {
         let chat;
         chat= <ChatApp username={this.identity} room={this.roomName}/>;
+        console.log(chat);
         let r = this.roomName;
         return (
             
