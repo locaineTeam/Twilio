@@ -43,7 +43,7 @@ class App extends Component {
         if (this.state.selectedOption.value!==''){
             try {
 
-            const response = await fetch(`https://warm-hollows-35856.herokuapp.com/getTwilioToken?identity=${this.state.identity}&room=${this.state.selectedOption.value}`);
+            const response = await fetch(`https://ice2meetubackend.azurewebsites.net/getTwilioToken?identity=${this.state.identity}&room=${this.state.selectedOption.value}`);
 
             const data = await response.json();
             

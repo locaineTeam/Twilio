@@ -29,7 +29,7 @@ class ChatApp extends Component {
   async componentDidMount() {
 
 
-    const response = await fetch(`https://warm-hollows-35856.herokuapp.com/getTwilioToken?identity=${this.user.id}&room=${this.room}`).
+    const response = await fetch(`https://ice2meetubackend.azurewebsites.net/getTwilioToken?identity=${this.user.id}&room=${this.room}`).
       then(res => res.json())
       .then(data => Chat.create(data.token))
       .then(this.setupChatClient)
