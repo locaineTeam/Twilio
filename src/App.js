@@ -6,6 +6,7 @@ import Room from './Room';
 
 const { connect } = require('twilio-video');
 
+
 const options = [
   { value: '', label: '⠀' },
   { value: 'spanish', label: 'Spanish' },
