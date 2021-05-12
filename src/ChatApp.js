@@ -19,6 +19,7 @@ class ChatApp extends Component {
     };
 
 
+
     this.setupChatClient = this.setupChatClient.bind(this);
     this.messagesLoaded = this.messagesLoaded.bind(this);
     this.messageAdded = this.messageAdded.bind(this);
