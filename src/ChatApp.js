@@ -127,9 +127,7 @@ class ChatApp extends Component {
     if(message.body[0] === '#'){
 
       const k = this.fetchCommand(message.body.slice(1),message,(m)=>{
-            console.log(m);
-            let variable = {body:m,author:this.user.id,timestamp:null};
-
+            let variable = {body:m,author:message.state.author,timestamp:message.state.timestamp};
             this.setState(prevState => (
 
               {
@@ -142,7 +140,7 @@ class ChatApp extends Component {
               }
 
             ));
-            console.log(message);
+
             //this.messageAdded(message);
             
 

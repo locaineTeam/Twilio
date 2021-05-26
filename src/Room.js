@@ -11,7 +11,6 @@ class Room extends Component {
 
             remoteParticipants: Array.from(this.props.room.participants.values())
         }
-        //console.log(this.state.remoteParticipants);Array de participantes remotos
 
         this.leaveRoom = this.leaveRoom.bind(this);
         this.identity = this.props.room.localParticipant.identity;
@@ -32,7 +31,6 @@ class Room extends Component {
     }
 
     addParticipant(participant) {
-        console.log(`${participant.identity} has joined the room.`);
 
         this.setState({
             remoteParticipants: [...this.state.remoteParticipants, participant]
@@ -40,7 +38,6 @@ class Room extends Component {
     }
 
     removeParticipant(participant) {
-        console.log(`${participant.identity} has left the room`);
 
         this.setState({
             remoteParticipants: this.state.remoteParticipants.filter(p => p.identity !== participant.identity)
@@ -55,7 +52,6 @@ class Room extends Component {
     render() {
         let chat;
         chat= <ChatApp username={this.identity} room={this.roomName}/>;
-        console.log(chat);
         let r = this.roomName;
         return (
             
